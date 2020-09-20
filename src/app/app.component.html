@@ -1,0 +1,60 @@
+<div class="col-sm-4">
+  <h1>Registration Form</h1>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Username</label>
+      <input [class.is-invalid]="un.invalid && un.touched " formControlName = "userName" type="text" class="form-control">
+      <small class="red" *ngIf="un.invalid && un.touched">Username is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input email [class.is-invalid]="em.invalid && em.touched " formControlName = "email" type="text" class="form-control">
+      <small class="red" *ngIf="em.invalid && em.touched">Email is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input [class.is-invalid]="pw.invalid && pw.touched " formControlName = "password" type="password" class="form-control">
+      <div *ngIf="pw.invalid && pw.touched">
+        <small *ngIf="pw.errors?.required" class="red">Password is required</small>
+        <small *ngIf="pw.errors?.pattern" class="red">Minimum 8 characters, At least one Uppercase letter, lowercase letter, $@$!%*?&</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input [class.is-invalid]="registrationForm.errors?.misMatch" formControlName = "confirmPassword" type="password" class="form-control">
+      <small *ngIf="registrationForm.errors?.misMatch" class="red">Password do not match </small>
+    </div>
+
+    <div formGroupName = "address">
+
+      <div class="form-group">
+        <label>City</label>
+        <input  formControlName = "city" type="text"  class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>State</label>
+        <input  formControlName = "state"  type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Postal Codes</label>
+        <input  formControlName = "postalCode" type="text" class="form-control">
+      </div>
+
+    </div>
+
+    <button [disabled]="registrationForm.invalid" class="btn btn-primary" type="submit">Register</button>
+
+
+  </form>
+
+  
+
+</div>
+
+{{registrationForm.value | json}}
